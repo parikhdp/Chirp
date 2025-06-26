@@ -1,15 +1,18 @@
-import { Text, View } from "react-native";
+import { SafeAreaView, StyleSheet } from "react-native";
+import Home from "./screens/Home";
 
 export default function Index() {
   return (
-    <View
-      style={{
-        flex: 1,
-        justifyContent: "center",
-        alignItems: "center",
-      }}
-    >
-      <Text>Hey this is Dhriti</Text>
-    </View>
+    <SafeAreaView style={styles.container}>
+      <Home />    
+    </SafeAreaView>
   );
 }
+
+const styles=StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: "#fff",
+    padding:20,
+  },
+});

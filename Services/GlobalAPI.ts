@@ -8,12 +8,12 @@ const api = create({
 
 
 
-const getTopHeadline=() =>{
-    const API_KEY = Constants.expoConfig?.extra?.API_KEY;
+const getTopHeadline = () => {
+  const API_KEY = Constants.expoConfig?.extra?.API_KEY;
   return api.get<NewsAPIResponse>(`/top-headlines?sources=bbc-news&apiKey=${API_KEY}`);
- //if its just a constant then it is executed when file is imported, its possible that api key isnt loaded till then so use it as a fucntion
+  //if its just a constant then it is executed when file is imported, its possible that api key isnt loaded till then so use it as a fucntion
 }
 
- export default {
+export default {
   getTopHeadline,
 };

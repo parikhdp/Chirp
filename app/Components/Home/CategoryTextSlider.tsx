@@ -13,7 +13,7 @@ const CategoryTextSlider = () => {
         { id: 5, name: "Entertainment" },
         { id: 6, name: "Business" }
     ];
-    
+
     const onCategoryClick = (id: number) => {
         setActiveCategory(id);
     };
@@ -26,7 +26,7 @@ const CategoryTextSlider = () => {
                 showsHorizontalScrollIndicator={false}
                 keyExtractor={(item) => item.id.toString()} // to track list items efficiently while re-rendering
                 renderItem={({ item }) => (
-                    <TouchableOpacity onPress={()=>onCategoryClick(item.id)}>
+                    <TouchableOpacity onPress={() => onCategoryClick(item.id)}>
                         <View>
                             <Text style={item.id == activeCategory ? styles.selectedCategoryName : styles.categoryName}>
                                 {item.name}

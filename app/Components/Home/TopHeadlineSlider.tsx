@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react';
-import { Text, View } from 'react-native';
+import { View } from 'react-native';
 import GlobalAPI from '../../../Services/GlobalAPI';
 import { Article } from '../../../types';
 
 const TopHeadlineSlider = () => {
- const [newsList, setNewsList] = useState<Article[]>([]);
+  const [newsList, setNewsList] = useState<Article[]>([]);
   useEffect(() => {
     getTopHeadlines();
-  },[])
+  }, [])
 
   const getTopHeadlines = async () => {
     const response = await GlobalAPI.getTopHeadline();
@@ -19,8 +19,8 @@ const TopHeadlineSlider = () => {
   };
   return (
     <View>
-         <Text>Headline</Text> 
-      </View>
+      <Flatlist />
+    </View>
   )
 }
 

@@ -25,7 +25,6 @@ const CategoryTextSlider = () => {
                 horizontal={true}
                 showsHorizontalScrollIndicator={false}
                 keyExtractor={(item) => item.id.toString()} // to track list items efficiently while re-rendering
-                contentContainerStyle={styles.listContainer}
                 renderItem={({ item }) => (
                     <TouchableOpacity onPress={()=>onCategoryClick(item.id)}>
                         <View>
@@ -45,9 +44,6 @@ const styles = StyleSheet.create({
     container: {
         marginTop: 10,
     },
-    listContainer: {
-        paddingHorizontal: 5
-    }, // to prevent the text from touching the edges even thought there is overall padding this is just good practice
     categoryName: {
         fontSize: 20,
         fontWeight: '800',

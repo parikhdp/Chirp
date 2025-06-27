@@ -1,10 +1,23 @@
-import React from 'react'
+import React, { useEffect } from 'react'
+import { Text, View } from 'react-native'
+import GlobalAPI from '../../../Services/GlobalAPI'
 
 const TopHeadlineSlider = () => {
+  
+  useEffect(() => {
+    getTopHeadlines();
+  },[])
+
+  const getTopHeadlines = async () => {
+    const result=(await GlobalAPI.getTopHeadline()).data;
+    console.log(result);
+    }
+  
+
   return (
-    <div>
-      top sidr
-    </div>
+    <View>
+         <Text>Headline</Text> 
+      </View>
   )
 }
 

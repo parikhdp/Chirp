@@ -3,6 +3,7 @@ import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import Color from '../../assets/Color';
 import CategoryTextSlider from '../Components/Home/CategoryTextSlider';
+import TopHeadlineSlider from '../Components/Home/TopHeadlineSlider';
 
 const Home = () => {
   return (
@@ -12,6 +13,7 @@ const Home = () => {
         <Ionicons name="notifications-outline" size={26} color={Color.black} />
       </View>
       <CategoryTextSlider />
+      <TopHeadlineSlider/>
     </View>
   )
 }

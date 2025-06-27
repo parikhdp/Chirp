@@ -1,23 +1,13 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { Dimensions, FlatList, Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import Color from '../../../assets/Color';
-import GlobalAPI from '../../../Services/GlobalAPI';
 import { Article } from '../../../types';
 
-const TopHeadlineSlider = () => {
-  const [newsList, setNewsList] = useState<Article[]>([]);
-  useEffect(() => {
-    getTopHeadlines();
-  }, [])
+type Props = {
+  newsList: Article[]; 
+};
+const TopHeadlineSlider = ({ newsList }: Props) => {
 
-  const getTopHeadlines = async () => {
-    const response = await GlobalAPI.getTopHeadline();
-    if (response.ok && response.data) {
-      setNewsList(response.data.articles);
-    } else {
-      console.error('Failed to fetch headlines:', response.problem);
-    }
-  };
   return (
     <View style={styles.container}>
       <FlatList
@@ -42,7 +32,6 @@ const TopHeadlineSlider = () => {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
     marginTop: 10,
   },
   imageCard: {
@@ -52,7 +41,6 @@ const styles = StyleSheet.create({
   image: {
     height: Dimensions.get('screen').width * 0.75,
     borderRadius: 10,
-    width: '100%',
   },
   heading:
     {

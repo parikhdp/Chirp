@@ -6,8 +6,6 @@ const api = create({
   baseURL: 'https://newsapi.org/v2',
 });
 
-
-
 const getTopHeadline = () => {
   const API_KEY = Constants.expoConfig?.extra?.API_KEY;
   return api.get<NewsAPIResponse>(`/top-headlines?sources=bbc-news&apiKey=${API_KEY}`);

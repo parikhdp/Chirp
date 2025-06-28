@@ -1,15 +1,16 @@
 import { Link } from 'expo-router';
 import React, { useEffect } from 'react';
 import {
-    FlatList,
-    Image,
-    StyleSheet,
-    Text,
-    TouchableOpacity,
-    View,
+  FlatList,
+  Image,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
 } from 'react-native';
-import Color from '../../../assets/Color';
+import Colors from '../../../assets/Color';
 import { useNews } from '../../../context/NewsContext';
+import { useTheme } from '../../../context/ThemeContext';
 import { Article } from '../../../types';
 
 type Props = {
@@ -18,6 +19,8 @@ type Props = {
 
 const HeadlineList = ({ newsList }: Props) => {
   const { setArticles } = useNews();
+  const { theme } = useTheme();
+  const Color = Colors[theme];
 
   useEffect(() => {
     setArticles(newsList); // Store articles globally
@@ -31,17 +34,17 @@ const HeadlineList = ({ newsList }: Props) => {
         renderItem={({ item, index }) => (
           <View>
             <Link href={`/News/${index}`} asChild>
-              <TouchableOpacity style={styles.imageCard}>
+              <TouchableOpacity style={styles.imageCard }>
                 <Image source={{ uri: item.urlToImage }} style={styles.image} />
                 <View style={styles.textbox}>
-                  <Text style={styles.heading} numberOfLines={4}>
+                  <Text style={[styles.heading, { color: Color.text }]} numberOfLines={4}>
                     {item.title}
                   </Text>
-                  <Text style={styles.source}>{item.source.name}</Text>
+                  <Text style={[styles.source, { color: Color.primary }]}>{item.source.name}</Text>
                 </View>
               </TouchableOpacity>
             </Link>
-            <View style={styles.separator} />
+             <View style={[styles.separator, { backgroundColor: Color.lightGray }]} />
           </View>
         )}
       />
@@ -70,11 +73,9 @@ const styles = StyleSheet.create({
   },
   source: {
     marginTop: 6,
-    color: Color.primary,
   },
   separator: {
     height: 1,
-    backgroundColor: Color.lightGray,
     marginTop: 10,
   },
 });

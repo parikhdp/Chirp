@@ -1,6 +1,7 @@
 import React from 'react';
 import { FlatList, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
-import Color from '../../../assets/Color';
+import Colors from '../../../assets/Color';
+import { useTheme } from '../../../context/ThemeContext';
 
 type CategoryTextSliderProps = {
   selectCategory: (category: string) => void;
@@ -8,6 +9,8 @@ type CategoryTextSliderProps = {
 
 const CategoryTextSlider: React.FC<CategoryTextSliderProps> = ({ selectCategory }) => {
   const [activeCategory, setActiveCategory] = React.useState(1); //by default id 1 is active
+  const { theme } = useTheme();
+  const Color = Colors[theme];
 
   const categories = [
     { id: 1, name: "Latest" },
@@ -32,7 +35,10 @@ const CategoryTextSlider: React.FC<CategoryTextSliderProps> = ({ selectCategory 
         keyExtractor={(item) => item.id.toString()}
         renderItem={({ item }) => (
           <TouchableOpacity onPress={() => onCategoryClick(item.id, item.name)}>
-            <Text style={item.id === activeCategory ? styles.selectedCategoryName : styles.categoryName}>
+             <Text
+              style={[
+                item.id === activeCategory ? styles.selectedCategoryName : styles.categoryName,
+                { color: item.id === activeCategory ? Color.primary : Color.text },]}>
               {item.name}
             </Text>
           </TouchableOpacity>
@@ -50,13 +56,11 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: '800',
     marginRight: 15,
-    color: Color.gray,
   },
   selectedCategoryName: {
     fontSize: 20,
     fontWeight: '900',
     marginRight: 15,
-    color: Color.primary,
   },
 });
 

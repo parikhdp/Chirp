@@ -1,4 +1,5 @@
 import { Ionicons } from '@expo/vector-icons';
+import { StatusBar } from 'expo-status-bar';
 import React, { useEffect, useState } from 'react';
 import {
   ActivityIndicator,
@@ -7,7 +8,8 @@ import {
   Text,
   View
 } from 'react-native';
-import Color from '../../assets/Color';
+import Colors from '../../assets/Color';
+import { useTheme } from '../../context/ThemeContext';
 import GlobalAPI from '../../Services/GlobalAPI';
 import { Article } from '../../types';
 import CategoryTextSlider from '../Components/Home/CategoryTextSlider';
@@ -17,6 +19,8 @@ import TopHeadlineSlider from '../Components/Home/TopHeadlineSlider';
 const Home = () => {
   const [newsList, setNewsList] = useState<Article[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
+  const { theme, toggleTheme } = useTheme();
+  const Color = Colors[theme];
 
   useEffect(() => {
     getNewsByCategory('Latest');
@@ -34,12 +38,19 @@ const Home = () => {
   };
 
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, { backgroundColor: Color.background }]}>
+      <StatusBar style={theme === 'dark' ? 'light' : 'dark'} />
+
       {/* Sticky Header */}
-      <View style={styles.fixedHeader}>
+      <View style={[styles.fixedHeader, { backgroundColor: Color.background }]}>
         <View style={styles.header}>
-          <Text style={styles.appName}>Chirp News</Text>
-          <Ionicons name="notifications-outline" size={26} color={Color.black} />
+          <Text style={[styles.appName, { color: Color.primary }]}>Chirp News</Text>
+          <Ionicons
+            name={theme === 'light' ? 'moon' : 'sunny'}
+            size={26}
+            color={Color.text}
+            onPress={toggleTheme}
+          />
         </View>
         <CategoryTextSlider selectCategory={(category) => getNewsByCategory(category)} />
       </View>
@@ -56,7 +67,7 @@ const Home = () => {
           ListHeaderComponent={
             <>
               <TopHeadlineSlider newsList={newsList} />
-              <View style={styles.separator} />
+              <View style={[styles.separator, { backgroundColor: Color.lightGray }]} />
             </>
           }
           ListFooterComponent={<HeadlineList newsList={newsList} />}
@@ -68,12 +79,13 @@ const Home = () => {
   );
 };
 
+//style sheet is static so all color changes accroding to theme are done directly on the component styles
+//sos we do inline styles for dynamic colors
 const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
   fixedHeader: {
-    backgroundColor: Color.white,
     padding: 20,
     zIndex: 10,
   },
@@ -90,11 +102,9 @@ const styles = StyleSheet.create({
   appName: {
     fontSize: 26,
     fontWeight: 'bold',
-    color: Color.primary,
   },
   separator: {
     height: 1.5,
-    backgroundColor: Color.lightGray,
     marginVertical: 10,
   },
   loaderContainer: {

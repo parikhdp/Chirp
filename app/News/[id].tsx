@@ -1,5 +1,6 @@
 import { Ionicons } from '@expo/vector-icons';
 import { router, useLocalSearchParams } from 'expo-router';
+import * as WebBrowser from 'expo-web-browser';
 import { Image, ScrollView, Share, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import Color from '../../assets/Color';
 import { useNews } from '../../context/NewsContext';
@@ -22,8 +23,8 @@ export default function ArticleScreen() {
   const shareNews = () => {
     Share.share({
       message: `Check out this news article: ${article.title}\n\nRead more at ${article.url}`,
-     })
-    };
+    })
+  };
 
   return (
     <View style={styles.outer}>
@@ -39,7 +40,7 @@ export default function ArticleScreen() {
           <TouchableOpacity onPress={() => router.back()}>
             <Ionicons name="arrow-back" size={28} color={Color.black} />
           </TouchableOpacity>
-          <TouchableOpacity onPress={()=>shareNews()}>
+          <TouchableOpacity onPress={() => shareNews()}>
             <Ionicons name="share-outline" size={28} color={Color.black} />
           </TouchableOpacity>
         </View>
@@ -48,7 +49,9 @@ export default function ArticleScreen() {
         <Text style={styles.title}>{article.title}</Text>
         <Text style={styles.source}>{article.source.name}</Text>
         <Text style={styles.description}>{article.description}</Text>
-        <Text style={styles.readMore}>Read More</Text>
+        <TouchableOpacity onPress={() => WebBrowser.openBrowserAsync(article.url)}>
+          <Text style={styles.readMore}>Read More</Text>
+        </TouchableOpacity>
       </ScrollView>
     </View>
   );
@@ -62,7 +65,7 @@ const styles = StyleSheet.create({
   header: {
     backgroundColor: Color.white,
     paddingHorizontal: 20,
-    paddingTop: 50, 
+    paddingTop: 50,
     paddingBottom: 15,
     flexDirection: 'row',
     justifyContent: 'space-between',

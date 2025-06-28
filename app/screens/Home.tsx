@@ -12,8 +12,18 @@ const Home = () => {
   const [newsList, setNewsList] = useState<Article[]>([]);
 
   useEffect(() => {
-    getTopHeadlines();
+   //getTopHeadlines();
+    getNewsByCategory('Latest');
   }, []);
+
+  const getNewsByCategory = async (category: string) => {
+    const response = await GlobalAPI.getByCategory(category);
+    if (response.ok && response.data) {
+      setNewsList(response.data.articles);
+    } else {
+      console.error('Failed to fetch news by category:', response.problem);
+    }
+  };
 
   const getTopHeadlines = async () => {
     const response = await GlobalAPI.getTopHeadline();
@@ -32,7 +42,7 @@ const Home = () => {
           <Text style={styles.appName}>Chirp News</Text>
           <Ionicons name="notifications-outline" size={26} color={Color.black} />
         </View>
-        <CategoryTextSlider />
+        <CategoryTextSlider selectCategory ={(category)=>getNewsByCategory(category)}/>
       </View>
 
       {/* Scrollable Content */} 

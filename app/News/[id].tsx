@@ -1,6 +1,6 @@
 import { Ionicons } from '@expo/vector-icons';
 import { router, useLocalSearchParams } from 'expo-router';
-import { Image, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { Image, ScrollView, Share, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import Color from '../../assets/Color';
 import { useNews } from '../../context/NewsContext';
 
@@ -19,6 +19,12 @@ export default function ArticleScreen() {
     );
   }
 
+  const shareNews = () => {
+    Share.share({
+      message: `Check out this news article: ${article.title}\n\nRead more at ${article.url}`,
+     })
+    };
+
   return (
     <View style={styles.outer}>
       {/* Sticky Header */}
@@ -33,7 +39,7 @@ export default function ArticleScreen() {
           <TouchableOpacity onPress={() => router.back()}>
             <Ionicons name="arrow-back" size={28} color={Color.black} />
           </TouchableOpacity>
-          <TouchableOpacity>
+          <TouchableOpacity onPress={()=>shareNews()}>
             <Ionicons name="share-outline" size={28} color={Color.black} />
           </TouchableOpacity>
         </View>

@@ -23,4 +23,4 @@ export const NewsProvider = ({ children }: { children: ReactNode }) => {
   );
 };
 
-//export default NewsContext;
+export default NewsContext;

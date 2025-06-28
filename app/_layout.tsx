@@ -1,11 +1,10 @@
 import { Stack } from 'expo-router';
+import { NewsProvider } from '../context/NewsContext';
 
 export default function Layout() {
   return (
-    <Stack
-      screenOptions={{
-        headerShown: false
-      }}
-    />
+    <NewsProvider>
+      <Stack screenOptions={{ headerShown: false }} />
+    </NewsProvider>
   );
 }

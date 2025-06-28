@@ -15,7 +15,7 @@ const TopHeadlineSlider = ({ newsList }: Props) => {
         horizontal={true}
         showsHorizontalScrollIndicator={false}
         renderItem={({ item }) => (
-          <TouchableOpacity style={styles.imageCard}>
+          <TouchableOpacity style={styles.imageCard} onPress={()=>console.log('click')}>
             <Image source={{ uri: item.urlToImage }} style={styles.image} />
             <Text style={styles.heading} numberOfLines={2}>
               {item.title}

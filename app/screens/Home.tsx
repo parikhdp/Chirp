@@ -59,7 +59,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   fixedHeader: {
-    backgroundColor: '#fff',
+    backgroundColor:Color.white,
     padding: 20,
     zIndex: 10,
   },

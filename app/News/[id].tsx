@@ -1,5 +1,7 @@
-import { useLocalSearchParams } from 'expo-router';
-import { Image, ScrollView, StyleSheet, Text, View } from 'react-native';
+import { Ionicons } from '@expo/vector-icons';
+import { router, useLocalSearchParams } from 'expo-router';
+import { Image, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import Color from '../../assets/Color';
 import { useNews } from '../../context/NewsContext';
 
 export default function ArticleScreen() {
@@ -18,48 +20,94 @@ export default function ArticleScreen() {
   }
 
   return (
-    <ScrollView contentContainerStyle={styles.container}>
-      <Image source={{ uri: article.urlToImage }} style={styles.image} />
-      <Text style={styles.title}>{article.title}</Text>
-      <Text style={styles.author}>{article.author}</Text>
-      <Text style={styles.content}>{article.content}</Text>
-      <Text style={styles.source}>Source: {article.source.name}</Text>
-      <Text style={styles.date}>Published: {article.publishedAt}</Text>
-    </ScrollView>
+    <View style={styles.outer}>
+      {/* Sticky Header */}
+      <View style={styles.header}>
+        <Text style={styles.appName}>Chirp News</Text>
+        <Ionicons name="notifications-outline" size={26} color={Color.black} />
+      </View>
+      <View style={styles.separator} />
+      <ScrollView contentContainerStyle={styles.scroll}>
+        {/* Back & Share Buttons */}
+        <View style={styles.buttons}>
+          <TouchableOpacity onPress={() => router.back()}>
+            <Ionicons name="arrow-back" size={28} color={Color.black} />
+          </TouchableOpacity>
+          <TouchableOpacity>
+            <Ionicons name="share-outline" size={28} color={Color.black} />
+          </TouchableOpacity>
+        </View>
+
+        <Image source={{ uri: article.urlToImage }} style={styles.image} />
+        <Text style={styles.title}>{article.title}</Text>
+        <Text style={styles.source}>{article.source.name}</Text>
+        <Text style={styles.description}>{article.description}</Text>
+        <Text style={styles.readMore}>Read More</Text>
+      </ScrollView>
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    padding: 16,
-    backgroundColor: '#fff',
+  outer: {
+    flex: 1,
+    backgroundColor: Color.white,
+  },
+  header: {
+    backgroundColor: Color.white,
+    paddingHorizontal: 20,
+    paddingTop: 50, 
+    paddingBottom: 15,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    zIndex: 10,
+  },
+  appName: {
+    fontSize: 26,
+    fontWeight: 'bold',
+    color: Color.primary,
+  },
+  scroll: {
+    paddingHorizontal: 20,
+    paddingBottom: 30,
+  },
+  buttons: {
+    marginTop: 15,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginBottom: 10,
   },
   image: {
     width: '100%',
-    height: 200,
-    borderRadius: 10,
+    height: 380,
+    borderRadius: 15,
   },
   title: {
+    marginTop: 10,
     fontSize: 22,
     fontWeight: 'bold',
-    marginTop: 12,
-  },
-  author: {
-    fontStyle: 'italic',
-    marginTop: 4,
-    color: '#666',
-  },
-  content: {
-    marginTop: 10,
-    fontSize: 16,
-    lineHeight: 22,
   },
   source: {
-    marginTop: 12,
-    fontWeight: '500',
+    fontSize: 16,
+    marginTop: 10,
+    color: Color.primary,
   },
-  date: {
-    marginTop: 4,
-    color: '#888',
+  description: {
+    fontSize: 16,
+    marginTop: 10,
+    color: Color.gray,
+    lineHeight: 30,
+  },
+  readMore: {
+    fontSize: 16,
+    marginTop: 10,
+    color: Color.primary,
+    fontWeight: 'bold',
+  },
+  separator: {
+    height: 1.5,
+    backgroundColor: Color.lightGray,
+    marginTop: 10,
   },
 });

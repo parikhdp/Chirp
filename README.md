@@ -1,50 +1,89 @@
-# Welcome to your Expo app 👋
+# 📱 Chirp News
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+**Chirp News** is a modern, convenient, and beautifully designed mobile news application built with **React Native**, **Expo**, and **TypeScript**. Powered by [NewsAPI.org](https://newsapi.org), the app keeps you updated with the latest headlines across categories like Technology, Health, Sports, and more — all in a smooth and intuitive interface.
 
-## Get started
+---
 
-1. Install dependencies
+## ✨ Features
 
-   ```bash
-   npm install
-   ```
+- 📰 **Top Headlines** from reliable sources
+- 📚 **Category-based Filtering** (Technology, Health, Business, etc.)
+- 🌙 **Light & Dark Mode Toggle**
+- 📤 **Share Articles** directly from the app
+- 🔗 **In-App Reading** of full articles via web view
+- ⚡ **Fast & Responsive UI** with FlatList sliders and clean typography
+- 🔄 **Dynamic Theming** based on system or toggle preference
 
-2. Start the app
+--- 
 
-   ```bash
-   npx expo start
-   ```
+## 🚀 Getting Started
 
-In the output, you'll find options to open the app in a
+### Prerequisites
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+- Node.js & npm or yarn
+- [Expo CLI](https://docs.expo.dev/get-started/installation/)
+- A valid API key from [NewsAPI.org](https://newsapi.org)
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
+---
 
-## Get a fresh project
-
-When you're ready, run:
+### 🔧 Installation
 
 ```bash
-npm run reset-project
+git clone https://github.com/yourusername/chirp-news.git
+cd chirp-news
+npm install
+````
+
+> Or use `yarn` if you prefer:
+
+```bash
+yarn
 ```
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+---
 
-## Learn more
+### 🔑 Setup NewsAPI Key
 
-To learn more about developing your project with Expo, look at the following resources:
+Create an `.env` file in the root and add:
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+```env
+NEWS_API_KEY=your_newsapi_key_here
+```
 
-## Join the community
+> Ensure it's linked correctly in `app.config.ts` or `Constants.expoConfig?.extra`.
 
-Join our community of developers creating universal apps.
+---
 
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+### 🏃‍♂️ Run the App
+
+```bash
+npx expo start
+```
+
+> Scan the QR code from your Expo Go app or run on an emulator.
+
+## 🛠️ Built With
+
+* [React Native](https://reactnative.dev/)
+* [Expo](https://expo.dev/)
+* [TypeScript](https://www.typescriptlang.org/)
+* [NewsAPI.org](https://newsapi.org)
+
+---
+
+## 📤 Share Functionality
+
+You can share any article directly with your friends and family. The app uses the device's native sharing options to allow instant sharing.
+
+---
+
+## 🌗 Theme Support
+
+Supports **Dark Mode** and **Light Mode** toggling from the top-right icon in the header. Seamless switch and theme-aware component styling.
+
+---
+
+## 💡 Inspiration
+
+This app was built to provide a clean and accessible news-reading experience while learning modern mobile development patterns with React Native.
+

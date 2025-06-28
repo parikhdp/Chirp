@@ -1,6 +1,12 @@
 import { Ionicons } from '@expo/vector-icons';
 import React, { useEffect, useState } from 'react';
-import { FlatList, StyleSheet, Text, View } from 'react-native';
+import {
+  ActivityIndicator,
+  FlatList,
+  StyleSheet,
+  Text,
+  View
+} from 'react-native';
 import Color from '../../assets/Color';
 import GlobalAPI from '../../Services/GlobalAPI';
 import { Article } from '../../types';
@@ -10,28 +16,21 @@ import TopHeadlineSlider from '../Components/Home/TopHeadlineSlider';
 
 const Home = () => {
   const [newsList, setNewsList] = useState<Article[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
-   //getTopHeadlines();
     getNewsByCategory('Latest');
   }, []);
 
   const getNewsByCategory = async (category: string) => {
+    setLoading(true);
     const response = await GlobalAPI.getByCategory(category);
     if (response.ok && response.data) {
       setNewsList(response.data.articles);
     } else {
       console.error('Failed to fetch news by category:', response.problem);
     }
-  };
-
-  const getTopHeadlines = async () => {
-    const response = await GlobalAPI.getTopHeadline();
-    if (response.ok && response.data) {
-      setNewsList(response.data.articles);
-    } else {
-      console.error('Failed to fetch headlines:', response.problem);
-    }
+    setLoading(false);
   };
 
   return (
@@ -42,24 +41,29 @@ const Home = () => {
           <Text style={styles.appName}>Chirp News</Text>
           <Ionicons name="notifications-outline" size={26} color={Color.black} />
         </View>
-        <CategoryTextSlider selectCategory ={(category)=>getNewsByCategory(category)}/>
+        <CategoryTextSlider selectCategory={(category) => getNewsByCategory(category)} />
       </View>
 
-      {/* Scrollable Content */} 
-      {/*dummy flatlist instead of ScrollView as we dont want a scrollable content instead another scrollable content that will confuse React Native*/}
-      <FlatList
-        data={[]} // dummy
-        renderItem={null}
-        ListHeaderComponent={
-          <>
-            <TopHeadlineSlider newsList={newsList} />
-            <View style={styles.separator} />
-          </> //these stay before it
-        }
-        ListFooterComponent={<HeadlineList newsList={newsList} />}
-        contentContainerStyle={styles.scrollArea}
-        showsVerticalScrollIndicator={false}
-      />
+      {/* Loader or Content */}
+      {loading ? (
+        <View style={styles.loaderContainer}>
+          <ActivityIndicator size="large" color={Color.primary} />
+        </View>
+      ) : (
+        <FlatList
+          data={[]} // dummy
+          renderItem={null}
+          ListHeaderComponent={
+            <>
+              <TopHeadlineSlider newsList={newsList} />
+              <View style={styles.separator} />
+            </>
+          }
+          ListFooterComponent={<HeadlineList newsList={newsList} />}
+          contentContainerStyle={styles.scrollArea}
+          showsVerticalScrollIndicator={false}
+        />
+      )}
     </View>
   );
 };
@@ -69,7 +73,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   fixedHeader: {
-    backgroundColor:Color.white,
+    backgroundColor: Color.white,
     padding: 20,
     zIndex: 10,
   },
@@ -92,6 +96,11 @@ const styles = StyleSheet.create({
     height: 1.5,
     backgroundColor: Color.lightGray,
     marginVertical: 10,
+  },
+  loaderContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 });
 
